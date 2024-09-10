@@ -1,6 +1,6 @@
 let productsHTML = '';
 
-products.forEach((product)=>{
+products.forEach((product) => {
   productsHTML += `<div class="product-div">
           <div class="image-div">
             <img
@@ -15,7 +15,7 @@ products.forEach((product)=>{
           <b>$${(product.priceCents / 100).toFixed(2)}</b>
           <div class="product-rating-count">${product.rating.count}</div>
           <div class="product-quantity-container">
-            <select id="select-quantity">
+            <select class="select-quantity">
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -29,15 +29,34 @@ products.forEach((product)=>{
             </select>
           </div>
           <div class="added-to-cart-message"></div>
-          <button class="add-to-cart-button data-product-name="${product.name}">Add To Cart</button>
+          <button class="add-to-cart-button" data-product-id="${product.id}">Add To Cart</button>
         </div>`;
 });
-document.querySelector('.js-main-products').innerHTML= productsHTML;
-document.querySelectorAll('.add-to-cart-button').forEach((button)=>{
-  button.addEventListener('click', ()=>{
-    const productName = button.dataset.productName;
-    cart.push({
-      productName: productName,
-      quantity:productQuantity,
-    })})});
+
+document.querySelector('.js-main-products').innerHTML = productsHTML;
+
+document.querySelectorAll('.add-to-cart-button').forEach((button) => {
+  button.addEventListener('click', () => {
+    const productId = button.getAttribute('data-product-id');
+    const quantity = button.parentElement.querySelector('.select-quantity').value;
+    
+    let matchingItem;
+
+    cart.forEach((item)=>{
+      if(productId===item.productId){
+        matchingItem=item;
+      }
+    })
+      if (matchingItem){
+        matchingItemItem.quantity ++;
+      }else{
+        cart.push({
+          productId: productId,
+          quantity: parseInt(quantity, 10),
+        });
+      }
+    
+
     console.log(cart);
+  });
+});
