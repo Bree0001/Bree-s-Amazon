@@ -1,3 +1,4 @@
+import { products } from './products.js';
 let productsHTML = '';
 
 products.forEach((product) => {
@@ -55,8 +56,13 @@ document.querySelectorAll('.add-to-cart-button').forEach((button) => {
           quantity: parseInt(quantity, 10),
         });
       }
-    
 
-    console.log(cart);
+  let cartQuantity = 0;
+  cart.forEach((item)=>{
+    cartQuantity += item.quantity;
+  })
+
+  document.querySelector('.cart').innerHTML = cartQuantity;
+  
   });
 });
